@@ -27,21 +27,24 @@ To build it on Windows
     file here is for your reference, you just put your Android SDK path in
 	it
 4.  set JAVA_HOME, e.g.,
-
+~~~~
     set JAVA_HOME=C:\Program Files\Java\jdk1.7.0_75
+~~~~
 
 5.  Execute this:
-
+~~~~
     gradlew build
+~~~~
 
 6.	The first run will take a lot of time because the building system will need
     to download "gradle".  While anyway thereafter build will still be slow (may
     take 5 seconds or so) because IT IS JAVA!
 
 7.  To build on cygwin, edit zerox/env, adapt the following two env vars:
-
+~~~~
 	GRADLE_HOME
     JAVA_HOME
+~~~~
 
 ~~~~
 vim: set ai:
