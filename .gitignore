@@ -2,3 +2,7 @@
 /Application/build/
 /build/
 /local.properties
+## Created by Android Studio
+/.idea/
+/Application/Application.iml
+/android-BluetoothChat.iml
