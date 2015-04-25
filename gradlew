@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# vim: set et:
 
 ##############################################################################
 ##
@@ -11,6 +12,10 @@ DEFAULT_JVM_OPTS=""
 
 APP_NAME="Gradle"
 APP_BASE_NAME=`basename "$0"`
+
+# zerox: I want to put these two env vars at a file for easy access, while
+# still maintaining environment cleanness
+[ -f ./zerox/env ] && . ./zerox/env
 
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD="maximum"
@@ -67,13 +72,24 @@ cd "$SAVED" >&-
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
+# zerox: I want to put gradlew to PATH
+if [ ! -f "$CLASSPATH" ]; then
+    APP_HOME="`pwd -P`"
+    CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+fi
+
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
         # IBM's JDK on AIX uses strange locations for the executables
         JAVACMD="$JAVA_HOME/jre/sh/java"
     else
-        JAVACMD="$JAVA_HOME/bin/java"
+        # zerox: On Windows, executables have ".exe" suffix
+        if [ $cygwin ]; then
+            JAVACMD="$JAVA_HOME/bin/java.exe"
+        else
+            JAVACMD="$JAVA_HOME/bin/java"
+        fi
     fi
     if [ ! -x "$JAVACMD" ] ; then
         die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
@@ -114,6 +130,10 @@ fi
 if $cygwin ; then
     APP_HOME=`cygpath --path --mixed "$APP_HOME"`
     CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
+    # zerox: Also treat GRADLE_HOME
+    if [ -n "$GRADLE_HOME" ]; then
+        GRADLE_HOME=$(cygpath --mixed "$GRADLE_HOME")
+    fi
 
     # We build the pattern for arguments to be converted via cygpath
     ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`

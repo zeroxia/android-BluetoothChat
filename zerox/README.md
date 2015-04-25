@@ -37,3 +37,9 @@ To build it on Windows
 6.	The first run will take a lot of time because the building system will need
     to download "gradle".  While anyway thereafter build will still be slow (may
     take 5 seconds or so) because IT IS JAVA!
+
+7.  To build on cygwin, edit zerox/env, adapt the following two env vars:
+	GRADLE_HOME
+    JAVA_HOME
+
+# vim: set ai: #
