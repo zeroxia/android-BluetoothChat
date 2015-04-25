@@ -90,6 +90,8 @@ public class MainActivity extends SampleActivityBase {
     /** Create a chain of targets that will receive log data */
     @Override
     public void initializeLogging() {
+        Log.initializeWorld();
+
         // Wraps Android's native log framework.
         LogWrapper logWrapper = new LogWrapper();
         // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
@@ -104,6 +106,6 @@ public class MainActivity extends SampleActivityBase {
                 .findFragmentById(R.id.log_fragment);
         msgFilter.setNext(logFragment.getLogView());
 
-        Log.i(TAG, "Ready");
+        Log.i(TAG, "Ready @ %s", Log.nowString());
     }
 }

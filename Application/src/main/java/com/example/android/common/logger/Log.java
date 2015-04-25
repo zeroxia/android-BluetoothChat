@@ -15,6 +15,9 @@
  */
 package com.example.android.common.logger;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Helper class for a list (or tree) of LoggerNodes.
  *
@@ -36,6 +39,7 @@ public class Log {
 
     // Stores the beginning of the LogNode topology.
     private static LogNode mLogNode;
+    private static SimpleDateFormat mDateFormat;
 
     /**
      * Returns the next LogNode in the linked list.
@@ -51,6 +55,13 @@ public class Log {
         mLogNode = node;
     }
 
+    public static void initializeWorld() {
+        mDateFormat = new SimpleDateFormat("yy-MM-dd_HH:mm:ss.SSS");
+    }
+
+    public static String nowString() {
+        return mDateFormat.format(new Date());
+    }
     /**
      * Instructs the LogNode to print the log data provided. Other LogNodes can
      * be chained to the end of the LogNode as desired.
@@ -65,6 +76,10 @@ public class Log {
         if (mLogNode != null) {
             mLogNode.println(priority, tag, msg, tr);
         }
+    }
+
+    public static void printfln(int priority, String tag, String fmt, Object... args) {
+        println(priority, tag, String.format(fmt, args), null);
     }
 
     /**
@@ -101,6 +116,9 @@ public class Log {
         v(tag, msg, null);
     }
 
+    public static void v(String tag, String fmt, Object... args) {
+        printfln(VERBOSE, tag, fmt, args);
+    }
 
     /**
      * Prints a message at DEBUG priority.
@@ -122,6 +140,10 @@ public class Log {
      */
     public static void d(String tag, String msg) {
         d(tag, msg, null);
+    }
+
+    public static void d(String tag, String fmt, Object... args) {
+        printfln(DEBUG, tag, fmt, args);
     }
 
     /**
@@ -146,6 +168,10 @@ public class Log {
         i(tag, msg, null);
     }
 
+    public static void i(String tag, String fmt, Object... args) {
+        printfln(INFO, tag, fmt, args);
+    }
+
     /**
      * Prints a message at WARN priority.
      *
@@ -166,6 +192,10 @@ public class Log {
      */
     public static void w(String tag, String msg) {
         w(tag, msg, null);
+    }
+
+    public static void w(String tag, String fmt, Object... args) {
+        printfln(WARN, tag, fmt, args);
     }
 
     /**
@@ -201,6 +231,10 @@ public class Log {
         e(tag, msg, null);
     }
 
+    public static void e(String tag, String fmt, Object... args) {
+        printfln(ERROR, tag, fmt, args);
+    }
+
     /**
      * Prints a message at ASSERT priority.
      *
@@ -221,6 +255,10 @@ public class Log {
      */
     public static void wtf(String tag, String msg) {
         wtf(tag, msg, null);
+    }
+
+    public static void wtf(String tag, String fmt, Object... args) {
+        printfln(ASSERT, tag, fmt, args);
     }
 
     /**

@@ -85,7 +85,7 @@ public class BluetoothChatService {
      * @param state An integer defining the current connection state
      */
     private synchronized void setState(int state) {
-        Log.d(TAG, "setState() " + mState + " -> " + state);
+        Log.d(TAG, "setState() mState = %d", mState);
         mState = state;
 
         // Give the new state to the Handler so the UI Activity can update
@@ -104,7 +104,7 @@ public class BluetoothChatService {
      * session in listening (server) mode. Called by the Activity onResume()
      */
     public synchronized void start() {
-        Log.d(TAG, "start");
+        Log.d(TAG, "start: %s", Log.nowString());
 
         // Cancel any thread attempting to make a connection
         if (mConnectThread != null) {
